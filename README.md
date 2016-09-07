@@ -29,6 +29,7 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
 
 3. Access the available methods!
   - Character.all
+
     ```bash
     [2] pry(main)> Character.all
     => [#<Character:0x007f801ab66358
@@ -46,13 +47,17 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
     #<Character:0x007f801ab65098
     @attributes={:id=>8, :name=>"Robin Scherbatsky", :show_id=>4}>]
     ```
+
   - Character.find(5)
+
     ```bash
     [3] pry(main)> Character.find(5)
     => #<Character:0x007f801a3d3780
     @attributes={:id=>5, :name=>"Daenerys Targaryen", :show_id=>3}>
     ```
+
   - Character.where({show_id: 2})
+
     ```bash
     [4] pry(main)> Character.where({show_id: 2})
     => [#<Character:0x007fd3e10d6490
@@ -60,7 +65,9 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
     #<Character:0x007fd3e10d6350
     @attributes={:id=>4, :name=>"Saul Berenson", :show_id=>2}>]
     ```
+
   - Associations
+  
     ```bash
     [5] pry(main)> John = Character.find(2)
     => #<Character:0x007fd3e11ec9b0
