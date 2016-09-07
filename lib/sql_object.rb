@@ -1,30 +1,33 @@
 require_relative 'db_connection'
+require_relative 'associatable'
 require 'active_support/inflector'
-
 
 class SQLObject
   def self.columns
-    @columns ||= DBConnection.execute2(<<-SQL).first
+    return @columns if @columns
+    cols = DBConnection.execute2(<<-SQL).first
       SELECT
         *
       FROM
         #{self.table_name}
     SQL
-
-    @columns.map!(&:to_sym)
+    cols.map! { |col| col.to_sym }
+    @columns = cols
   end
 
   def self.finalize!
-    self.columns.each do |col|
-      define_method(col) do
-        self.attributes[col]
+    self.columns.each do |attr_name|
+      define_method(attr_name) do
+        self.attributes[attr_name]
       end
 
-      define_method("#{col}=") do |value|
-        self.attributes[col] = value
+      define_method("#{attr_name}=") do |value|
+        self.attributes[attr_name] = value
       end
     end
+
   end
+
 
   def self.table_name=(table_name)
     @table_name = table_name
@@ -48,17 +51,19 @@ class SQLObject
     results.map { |result| self.new(result) }
   end
 
-  def where(params)
-    where = params.keys.map { |key| "#{key} = ?" }.join(" AND ")
-    results = DBConnection.execute(<<-SQL, *params.values)
+  def self.where(params)
+    where_line = params.keys.map { |key| "#{key} = ?"}.join(" AND ")
+    vals = params.values
+    result = DBConnection.execute(<<-SQL, *vals)
       SELECT
         *
       FROM
-        #{self.table_name}
+        #{table_name}
       WHERE
-        #{where}
+        #{where_line}
     SQL
-    self.parse_all(results)
+
+    parse_all(result)
   end
 
   def self.find(id)
