@@ -17,12 +17,12 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
 ## 3-Step Demo
 
 1. Clone this repo
-  ```bash
+  ```ruby
   git clone https://github.com/justinwie/ArchitectureLite.git
   ```
 
 2. Load `irb` or `pry` and enter `load 'demo.rb'`
-  ```bash
+  ```ruby
   [1] pry(main)> load 'demo.rb'
   => true
   ```
@@ -30,7 +30,7 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
 3. Access the available methods!
   - Character.all
 
-    ```bash
+    ```ruby
     [2] pry(main)> Character.all
     => [#<Character:0x007f801ab66358
     @attributes={:id=>1, :name=>"Sherlock Holmes", :show_id=>1}>,
@@ -50,7 +50,7 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
 
   - Character.find(5)
 
-    ```bash
+    ```ruby
     [3] pry(main)> Character.find(5)
     => #<Character:0x007f801a3d3780
     @attributes={:id=>5, :name=>"Daenerys Targaryen", :show_id=>3}>
@@ -58,7 +58,7 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
 
   - Character.where({show_id: 2})
 
-    ```bash
+    ```ruby
     [4] pry(main)> Character.where({show_id: 2})
     => [#<Character:0x007fd3e10d6490
     @attributes={:id=>3, :name=>"Carrie Mathison", :show_id=>2}>,
@@ -67,8 +67,8 @@ ArchitectureLite provides Object Relational Mapping, converting data between inc
     ```
 
   - Associations
-  
-    ```bash
+
+    ```ruby
     [5] pry(main)> John = Character.find(2)
     => #<Character:0x007fd3e11ec9b0
     @attributes={:id=>2, :name=>"John Watson", :show_id=>1}>
